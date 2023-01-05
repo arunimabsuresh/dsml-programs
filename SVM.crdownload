@@ -1,0 +1,61 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[22]:
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import sklearn.metrics as metrics
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report, confusion_matrix
+
+
+# In[23]:
+
+
+
+dataset=pd.read_csv('IRIS (2).csv')
+print(dataset.head())
+sns.pairplot(data=dataset, hue='species', palette='Set2')
+
+
+# In[24]:
+
+
+
+x=dataset.iloc[:,:-1]
+y=dataset.iloc[:,4]
+x_train,x_test, y_train, y_test=train_test_split(x,y,test_size=0.30)
+
+
+# In[25]:
+
+
+
+model=SVC()
+
+
+model.fit(x_train, y_train)
+
+
+# In[26]:
+
+
+y_pred=model.predict(x_test)
+
+print(confusion_matrix(y_test,y_pred))
+print(classification_report(y_test, y_pred))
+
+
+
+
+
+# In[ ]:
+
+
+
+

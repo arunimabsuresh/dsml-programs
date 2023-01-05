@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[2]:
+
+
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix,accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+
+
+# In[10]:
+
+
+dataset = pd.read_csv('Iris (4).csv')
+print(dataset.describe())
+print(dataset.head())
+
+
+# In[5]:
+
+
+X = dataset.iloc[:, [1, 2, 3]].values
+y = dataset.iloc[:, -1].values
+le = LabelEncoder()
+X[:,0] = le.fit_transform(X[:,0])
+
+
+# In[12]:
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state =0)
+
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+classifier = GaussianNB()
+
+
+# In[13]:
+
+
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+
+print(confusion_matrix(y_test, y_pred))
+print(accuracy_score(y_test,y_pred))
+
+
+# In[ ]:
+
+
+
+

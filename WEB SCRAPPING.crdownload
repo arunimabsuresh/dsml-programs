@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[2]:
+
+
+import requests
+from bs4 import BeautifulSoup
+url="https://economictimes.indiatimes.com/markets/stocks/news"
+result=requests.get(url)
+print(result.status_code)
+src=result.content
+soup=BeautifulSoup(src)
+count=1
+for i in (soup.find_all("p")):
+          print(count,"\n")
+          count=count+1
+          print(i.getText())
+
+
+# In[ ]:
+
+
+https://economictimes.indiatimes.com/
+
